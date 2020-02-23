@@ -1,0 +1,2 @@
+rootProject.name='HelloWorldPlugin'
+include ':plugin'
