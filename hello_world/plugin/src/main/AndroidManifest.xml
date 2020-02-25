@@ -5,7 +5,7 @@
     <!--
     Plugin metadata:
 
-    - In the `android:name` attribute, the `org.godotengine.plugin.v2` prefix
+    - In the `android:name` attribute, the `org.godotengine.plugin.v1` prefix
     is required so Godot can recognize the project as a valid Godot
     Android plugin. The plugin name following the prefix should match the value
     of the plugin name returned by the plugin initializer.
@@ -14,7 +14,7 @@
     initializer.
     -->
     <meta-data
-        android:name="org.godotengine.plugin.v2.HelloWorld"
+        android:name="org.godotengine.plugin.v1.HelloWorld"
         android:value="fhuyakou.godot.plugin.android.helloworld.HelloWorldPlugin" />
   </application>
 </manifest>
