@@ -1,0 +1,3 @@
+rootProject.name='Godot Android Plugins'
+
+include ':hello_world'
