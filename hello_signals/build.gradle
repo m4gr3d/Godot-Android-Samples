@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.1"
+
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+
+    // Used to customize the name of generated AAR file.
+    libraryVariants.all { variant ->
+        variant.outputs.all { output ->
+            output.outputFileName = "HelloSignals.${variant.name}.aar"
+        }
+    }
+
+}
+
+dependencies {
+    /*
+    Used to provide dependency on the Godot Android library. A version of that
+    library will be made available for each stable release of Godot.
+
+    `compileOnly` is used instead of `implementation` to ensure that the
+     godot library is not bundled with the generated plugin AAR file. This is
+     necessary since the Godot editor will also provide a version of the godot
+     library when building the final binary.
+     */
+    compileOnly fileTree(dir: '../libs', include: ['godot-lib*.aar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
