@@ -4,6 +4,7 @@ import android.util.Log
 import org.godotengine.godot.Godot
 import org.godotengine.godot.plugin.GodotPlugin
 import org.godotengine.godot.plugin.SignalInfo
+import org.godotengine.godot.plugin.UsedByGodot
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
@@ -28,8 +29,6 @@ class HelloSignalsPlugin(godot: Godot) : GodotPlugin(godot) {
     return setOf(tikTokSignalInfo)
   }
 
-  override fun getPluginMethods() = listOf("onButtonPressed")
-
   private fun startTikTok(): Boolean {
     if (tikTokTask == null || tikTokTask!!.isDone) {
       Log.i(TAG, "Starting tiktok...")
@@ -50,6 +49,7 @@ class HelloSignalsPlugin(godot: Godot) : GodotPlugin(godot) {
     }
   }
 
+  @UsedByGodot
   private fun onButtonPressed() {
     Log.i(TAG, "OnButtonPressed from Kotlin")
     if (!startTikTok()) {

@@ -1,12 +1,14 @@
-apply plugin: 'com.android.library'
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.1"
+    compileSdk versions.compileSdk
 
     defaultConfig {
-        minSdkVersion 18
-        targetSdkVersion 29
+        minSdk versions.minSdk
+        targetSdk versions.targetSdk
         versionCode 1
         versionName "1.0"
     }
@@ -21,14 +23,21 @@ android {
 }
 
 dependencies {
-    /*
-    Used to provide dependency on the Godot Android library. A version of that
-    library will be made available for each stable release of Godot.
-
-    `compileOnly` is used instead of `implementation` to ensure that the
-     godot library is not bundled with the generated plugin AAR file. This is
-     necessary since the Godot editor will also provide a version of the godot
-     library when building the final binary.
-     */
-    compileOnly fileTree(dir: '../libs', include: ['godot-lib*.aar'])
+    compileOnly "org.godotengine:godot:$versions.godotLibVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"
 }
+
+task copyDebugAARToAddons(type: Copy) {
+    from 'build/outputs/aar'
+    include 'HelloWorld.debug.aar'
+    into 'demo/addons/hello_world_plugin'
+}
+
+task copyReleaseAARToAddons(type: Copy) {
+    from 'build/outputs/aar'
+    include 'HelloWorld.release.aar'
+    into 'demo/addons/hello_world_plugin'
+}
+
+assemble.finalizedBy(copyDebugAARToAddons)
+assemble.finalizedBy(copyReleaseAARToAddons)
