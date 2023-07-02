@@ -1,4 +1,18 @@
-rootProject.name='Godot Android Plugins'
+pluginManagement {
+    apply from: 'config.gradle'
 
-include ':hello_world'
-include ':hello_signals'
+    repositories {
+        gradlePluginPortal()
+        google()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "Godot Android Plugins"
+include ':hello_world', ':hello_signals'
