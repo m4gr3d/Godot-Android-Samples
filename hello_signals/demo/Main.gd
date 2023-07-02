@@ -7,9 +7,9 @@ var helloSignals
 func _ready():
 	if Engine.has_singleton("HelloSignals"):
 		helloSignals = Engine.get_singleton("HelloSignals")
-		helloSignals.connect("TikTok", self, "_on_tiktok")
+		helloSignals.connect("TikTok", Callable(self, "_on_tiktok"))
 		
-		$Button.connect("pressed", self, "_on_Button_pressed")
+		$Button.connect("pressed", Callable(self, "_on_Button_pressed"))
 	else:
 		print("Couldn't find HelloSignals singleton")
 
