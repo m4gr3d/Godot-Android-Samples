@@ -1,3 +1,4 @@
 # Godot-Android-Plugins
-Collection of Godot Android plugins.
-The plugins in this repo require the [Android plugin refactor PR](https://github.com/godotengine/godot/pull/33682) to be operational. 
+Collection of Godot Android plugin samples.
+
+**Requires Godot 4.2 or above**
