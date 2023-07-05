@@ -30,13 +30,13 @@ dependencies {
 task copyDebugAARToAddons(type: Copy) {
     from 'build/outputs/aar'
     include 'HelloSignals.debug.aar'
-    into 'demo/addons/hello_signals_plugin'
+    into 'demo/addons/hello_signals_plugin/export'
 }
 
 task copyReleaseAARToAddons(type: Copy) {
     from 'build/outputs/aar'
     include 'HelloSignals.release.aar'
-    into 'demo/addons/hello_signals_plugin'
+    into 'demo/addons/hello_signals_plugin/export'
 }
 
 assemble.finalizedBy(copyDebugAARToAddons)

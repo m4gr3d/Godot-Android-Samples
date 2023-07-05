@@ -8,9 +8,9 @@ func _supports_platform(platform):
 	
 func _get_android_libraries(platform, debug):
 	if debug:
-		return PackedStringArray(["hello_world_plugin/HelloWorld.debug.aar"])
+		return PackedStringArray(["hello_world_plugin/export/HelloWorld.debug.aar"])
 	else:
-		return PackedStringArray(["hello_world_plugin/HelloWorld.release.aar"])
+		return PackedStringArray(["hello_world_plugin/export/HelloWorld.release.aar"])
 	
 func _get_name():
 	return "HelloWorldPlugin"

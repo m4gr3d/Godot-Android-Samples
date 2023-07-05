@@ -30,13 +30,13 @@ dependencies {
 task copyDebugAARToAddons(type: Copy) {
     from 'build/outputs/aar'
     include 'HelloWorld.debug.aar'
-    into 'demo/addons/hello_world_plugin'
+    into 'demo/addons/hello_world_plugin/export'
 }
 
 task copyReleaseAARToAddons(type: Copy) {
     from 'build/outputs/aar'
     include 'HelloWorld.release.aar'
-    into 'demo/addons/hello_world_plugin'
+    into 'demo/addons/hello_world_plugin/export'
 }
 
 assemble.finalizedBy(copyDebugAARToAddons)
