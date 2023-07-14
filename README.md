@@ -1,8 +1,8 @@
-# Godot-Android-Plugins
+# Godot-Android-Samples
 
 **Requires Godot 4.2 or above**
 
-Collection of samples showcasing how Godot Android plugins are built and packaged.
+Collection of samples showcasing how to integrate Godot into Android libraries, plugins and 
+applications.
 
- - [Hello World plugin](hello_world/README.md)
- - [Hello Signals plugin](hello_signals/README.md)
+ - [plugins](plugins/README.md): Contains sample plugins

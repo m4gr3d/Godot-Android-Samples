@@ -14,5 +14,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Godot Android Plugins"
-include ':hello_world', ':hello_signals'
+rootProject.name = "Godot Android Samples"
+include ':plugins:hello_world', ':plugins:hello_signals'
