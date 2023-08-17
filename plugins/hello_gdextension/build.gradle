@@ -28,6 +28,8 @@ android {
         }
     }
 
+    namespace = "fhuyakou.godot.plugin.android.hellogdextension"
+
     // Used to customize the name of generated AAR file.
     libraryVariants.configureEach { variant ->
         variant.outputs.configureEach { output ->
