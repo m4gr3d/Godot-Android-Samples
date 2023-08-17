@@ -12,7 +12,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/"}
     }
 }
 rootProject.name = "Godot Android Samples"
-include ':plugins:hello_world', ':plugins:hello_signals'
+include ':plugins:hello_world', ':plugins:hello_signals', ':plugins:hello_gdextension'

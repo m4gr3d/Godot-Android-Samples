@@ -1,0 +1,92 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk versions.compileSdk
+
+    defaultConfig {
+        minSdk versions.minSdk
+        targetSdk versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+        externalNativeBuild {
+            cmake {
+                cppFlags ''
+            }
+        }
+        ndk {
+            //noinspection ChromeOsAbiSupport
+            abiFilters 'arm64-v8a'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path file('CMakeLists.txt')
+            version '3.22.1'
+        }
+    }
+
+    // Used to customize the name of generated AAR file.
+    libraryVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
+            output.outputFileName = "HelloGDExtension.${variant.name}.aar"
+        }
+    }
+
+}
+
+dependencies {
+    // TODO: Update the godot dep when 4.2 is stable
+    compileOnly "io.github.m4gr3d:godot:4.2.0.dev-SNAPSHOT"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"
+}
+
+tasks.register('copyDebugAARToAddons', Copy) {
+    from 'build/outputs/aar'
+    include 'HelloGDExtension.debug.aar'
+    into 'src/main/assets/addons/hello_gdextension_plugin/.bin/debug'
+}
+
+tasks.register('copyReleaseAARToAddons', Copy) {
+    from 'build/outputs/aar'
+    include 'HelloGDExtension.release.aar'
+    into 'src/main/assets/addons/hello_gdextension_plugin/.bin/release'
+}
+
+tasks.register('copyDebugSharedLibs', Copy) {
+    dependsOn(":plugins:hello_gdextension:externalNativeBuildDebug")
+
+    from 'build/intermediates/cmake/debug/obj/arm64-v8a'
+    include 'libhello_gdextension.so'
+    into 'src/main/assets/addons/hello_gdextension_plugin/.bin/debug'
+}
+
+tasks.register('copyReleaseSharedLibs', Copy) {
+    dependsOn(":plugins:hello_gdextension:externalNativeBuildRelease")
+
+    from 'build/intermediates/cmake/release/obj/arm64-v8a'
+    include 'libhello_gdextension.so'
+    into 'src/main/assets/addons/hello_gdextension_plugin/.bin/release'
+}
+
+tasks.register('copyAddonsToDemo', Copy) {
+    dependsOn(copyDebugAARToAddons)
+    dependsOn(copyReleaseAARToAddons)
+    dependsOn(copyDebugSharedLibs)
+    dependsOn(copyReleaseSharedLibs)
+
+    doFirst {
+        delete('demo/addons/hello_gdextension_plugin')
+    }
+    from 'src/main/assets/addons/hello_gdextension_plugin'
+    into 'demo/addons/hello_gdextension_plugin'
+
+}
+
+assemble.finalizedBy(copyDebugAARToAddons)
+assemble.finalizedBy(copyReleaseAARToAddons)
+assemble.finalizedBy(copyDebugSharedLibs)
+assemble.finalizedBy(copyReleaseSharedLibs)
+assemble.finalizedBy(copyAddonsToDemo)
