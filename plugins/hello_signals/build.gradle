@@ -13,9 +13,11 @@ android {
         versionName "1.0"
     }
 
+    namespace = "fhuyakou.godot.plugin.android.hellosignals"
+
     // Used to customize the name of generated AAR file.
-    libraryVariants.all { variant ->
-        variant.outputs.all { output ->
+    libraryVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
             output.outputFileName = "HelloSignals.${variant.name}.aar"
         }
     }
@@ -23,21 +25,34 @@ android {
 }
 
 dependencies {
-    compileOnly "org.godotengine:godot:$versions.godotLibVersion"
+    // TODO: Update the godot dep when 4.2 is stable
+    compileOnly "io.github.m4gr3d:godot:4.2.0.dev-SNAPSHOT"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"
 }
 
-task copyDebugAARToAddons(type: Copy) {
+tasks.register('copyDebugAARToAddons', Copy) {
     from 'build/outputs/aar'
     include 'HelloSignals.debug.aar'
-    into 'demo/addons/hello_signals_plugin/export'
+    into 'src/main/assets/addons/hello_signals_plugin/.bin/debug'
 }
 
-task copyReleaseAARToAddons(type: Copy) {
+tasks.register('copyReleaseAARToAddons', Copy) {
     from 'build/outputs/aar'
     include 'HelloSignals.release.aar'
-    into 'demo/addons/hello_signals_plugin/export'
+    into 'src/main/assets/addons/hello_signals_plugin/.bin/release'
+}
+
+tasks.register('copyAddonsToDemo', Copy) {
+    dependsOn(copyDebugAARToAddons)
+    dependsOn(copyReleaseAARToAddons)
+
+    doFirst {
+        delete('demo/addons/hello_signals_plugin')
+    }
+    from 'src/main/assets/addons/hello_signals_plugin'
+    into 'demo/addons/hello_signals_plugin'
 }
 
 assemble.finalizedBy(copyDebugAARToAddons)
 assemble.finalizedBy(copyReleaseAARToAddons)
+assemble.finalizedBy(copyAddonsToDemo)
