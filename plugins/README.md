@@ -6,3 +6,4 @@ Collection of samples showcasing how Godot Android plugins are built and package
 
 - [Hello World plugin](hello_world/README.md)
 - [Hello Signals plugin](hello_signals/README.md)
+- [Hello GDExtension plugin](hello_gdextension/README.md)
