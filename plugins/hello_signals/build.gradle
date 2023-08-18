@@ -25,8 +25,7 @@ android {
 }
 
 dependencies {
-    // TODO: Update the godot dep when 4.2 is stable
-    compileOnly "io.github.m4gr3d:godot:4.2.0.dev-SNAPSHOT"
+    compileOnly libraries.godotAndroidLib
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"
 }
 
