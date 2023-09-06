@@ -40,7 +40,7 @@ class HelloGDExtensionPlugin(godot: Godot) : GodotPlugin(godot) {
 
     override fun getPluginName() = "HelloGDExtension"
 
-    override fun getPluginGDExtensionModulesPaths() = setOf("res://addons/hello_gdextension_plugin/hello_gdextension.gdextension")
+    override fun getPluginGDExtensionLibrariesPaths() = setOf("res://addons/hello_gdextension_plugin/hello_gdextension.gdextension")
 
     private external fun nativeAddGDExampleNode(parentNodePath: String)
 
