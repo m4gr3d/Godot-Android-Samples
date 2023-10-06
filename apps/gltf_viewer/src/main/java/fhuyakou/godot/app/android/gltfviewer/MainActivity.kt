@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.godotengine.godot.Godot
 import org.godotengine.godot.GodotFragment
 import org.godotengine.godot.GodotHost
+import org.godotengine.godot.plugin.GodotPlugin
 
 /**
  * Implements the [GodotHost] interface so it can access functionality from the [Godot] instance.
@@ -13,9 +14,7 @@ class MainActivity: AppCompatActivity(), GodotHost {
 
     private var godotFragment: GodotFragment? = null
 
-    internal val appPlugin: AppPlugin by lazy {
-        AppPlugin(godot!!)
-    }
+    internal var appPlugin: AppPlugin? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +31,8 @@ class MainActivity: AppCompatActivity(), GodotHost {
                 .commitNowAllowingStateLoss()
         }
 
+        initAppPluginIfNeeded(godot!!)
+
         var itemsSelectionFragment = supportFragmentManager.findFragmentById(R.id.item_selection_fragment_container)
         if (itemsSelectionFragment !is ItemsSelectionFragment) {
             itemsSelectionFragment = ItemsSelectionFragment.newInstance(1)
@@ -41,9 +42,19 @@ class MainActivity: AppCompatActivity(), GodotHost {
         }
     }
 
+    private fun initAppPluginIfNeeded(godot: Godot) {
+        if (appPlugin == null) {
+            appPlugin = AppPlugin(godot)
+        }
+    }
+
     override fun getActivity() = this
 
     override fun getGodot() = godotFragment?.godot
 
-    override fun getHostPlugins() = setOf(appPlugin)
+    override fun getHostPlugins(godot: Godot): Set<GodotPlugin> {
+        initAppPluginIfNeeded(godot)
+
+        return setOf(appPlugin!!)
+    }
 }

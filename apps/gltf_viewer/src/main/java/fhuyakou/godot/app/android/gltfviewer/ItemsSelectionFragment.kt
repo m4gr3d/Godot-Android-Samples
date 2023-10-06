@@ -59,7 +59,7 @@ class ItemsSelectionFragment : Fragment(), GLTFItemRecyclerViewAdapter.Listener 
     override fun onItemSelected(item: GLTFContent.GLTFItem) {
         val parentActivity = activity
         if (parentActivity is MainActivity) {
-            parentActivity.appPlugin.showGLTF(item.glbFilepath)
+            parentActivity.appPlugin?.showGLTF(item.glbFilepath)
         }
     }
 }

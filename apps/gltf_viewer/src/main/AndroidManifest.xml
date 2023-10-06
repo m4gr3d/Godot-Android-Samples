@@ -10,9 +10,8 @@
         android:theme="@style/Theme.GodotAndroidSamples" >
 
         <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleInstance"
-            android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize|density|keyboard|navigation|screenLayout|uiMode"
+            android:screenOrientation="fullUser"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:exported="true">
 
             <intent-filter>
