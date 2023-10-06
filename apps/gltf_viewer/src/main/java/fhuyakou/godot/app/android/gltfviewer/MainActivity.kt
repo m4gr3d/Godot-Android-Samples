@@ -1,0 +1,49 @@
+package fhuyakou.godot.app.android.gltfviewer
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import org.godotengine.godot.Godot
+import org.godotengine.godot.GodotFragment
+import org.godotengine.godot.GodotHost
+
+/**
+ * Implements the [GodotHost] interface so it can access functionality from the [Godot] instance.
+ */
+class MainActivity: AppCompatActivity(), GodotHost {
+
+    private var godotFragment: GodotFragment? = null
+
+    internal val appPlugin: AppPlugin by lazy {
+        AppPlugin(godot!!)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.activity_main)
+
+        val currentGodotFragment = supportFragmentManager.findFragmentById(R.id.godot_fragment_container)
+        if (currentGodotFragment is GodotFragment) {
+            godotFragment = currentGodotFragment
+        } else {
+            godotFragment = GodotFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.godot_fragment_container, godotFragment!!)
+                .commitNowAllowingStateLoss()
+        }
+
+        var itemsSelectionFragment = supportFragmentManager.findFragmentById(R.id.item_selection_fragment_container)
+        if (itemsSelectionFragment !is ItemsSelectionFragment) {
+            itemsSelectionFragment = ItemsSelectionFragment.newInstance(1)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.item_selection_fragment_container, itemsSelectionFragment)
+                .commitAllowingStateLoss()
+        }
+    }
+
+    override fun getActivity() = this
+
+    override fun getGodot() = godotFragment?.godot
+
+    override fun getHostPlugins() = setOf(appPlugin)
+}

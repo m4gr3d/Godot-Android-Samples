@@ -1,4 +1,4 @@
-final snapshotGodotAndroidLib = "org.godotengine:godot:4.2.0.dev-SNAPSHOT"
+final snapshotGodotAndroidLib = "io.github.m4gr3d:godot:4.2.0.dev-SNAPSHOT" // "org.godotengine:godot:4.2.0.dev-SNAPSHOT"
 final stableGodotAndroidLib = "org.godotengine:godot:4.1.0.stable"
 
 ext {
@@ -8,7 +8,7 @@ ext {
             minSdk             : 21,
             targetSdk          : 33,
             javaVersion        : JavaVersion.VERSION_11,
-            kotlinVersion      : '1.8.20',
+            kotlinVersion      : '1.8.22',
     ]
 
     libraries = [
