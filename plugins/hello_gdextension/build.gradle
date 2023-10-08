@@ -44,39 +44,37 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"
 }
 
-tasks.register('copyDebugAARToAddons', Copy) {
+tasks.register('copyDebugAARToDemoAddons', Copy) {
     from 'build/outputs/aar'
     include 'HelloGDExtension.debug.aar'
-    into 'src/main/assets/addons/hello_gdextension_plugin/.bin/debug'
+    into 'demo/addons/hello_gdextension_plugin/bin/debug'
 }
 
-tasks.register('copyReleaseAARToAddons', Copy) {
+tasks.register('copyReleaseAARToDemoAddons', Copy) {
     from 'build/outputs/aar'
     include 'HelloGDExtension.release.aar'
-    into 'src/main/assets/addons/hello_gdextension_plugin/.bin/release'
+    into 'demo/addons/hello_gdextension_plugin/bin/release'
 }
 
 tasks.register('copyDebugSharedLibs', Copy) {
     dependsOn(":plugins:hello_gdextension:externalNativeBuildDebug")
 
-    from 'build/intermediates/cmake/debug/obj/arm64-v8a'
-    include 'libhello_gdextension.so'
-    into 'src/main/assets/addons/hello_gdextension_plugin/.bin/debug'
+    from 'build/intermediates/cmake/debug/obj'
+    into 'demo/addons/hello_gdextension_plugin/bin/debug'
 }
 
 tasks.register('copyReleaseSharedLibs', Copy) {
     dependsOn(":plugins:hello_gdextension:externalNativeBuildRelease")
 
-    from 'build/intermediates/cmake/release/obj/arm64-v8a'
-    include 'libhello_gdextension.so'
-    into 'src/main/assets/addons/hello_gdextension_plugin/.bin/release'
+    from 'build/intermediates/cmake/release/obj'
+    into 'demo/addons/hello_gdextension_plugin/bin/release'
 }
 
 tasks.register('copyAddonsToDemo', Copy) {
-    dependsOn(copyDebugAARToAddons)
-    dependsOn(copyReleaseAARToAddons)
-    dependsOn(copyDebugSharedLibs)
-    dependsOn(copyReleaseSharedLibs)
+    finalizedBy(copyDebugAARToDemoAddons)
+    finalizedBy(copyReleaseAARToDemoAddons)
+    finalizedBy(copyDebugSharedLibs)
+    finalizedBy(copyReleaseSharedLibs)
 
     doFirst {
         delete('demo/addons/hello_gdextension_plugin')
@@ -86,8 +84,8 @@ tasks.register('copyAddonsToDemo', Copy) {
 
 }
 
-assemble.finalizedBy(copyDebugAARToAddons)
-assemble.finalizedBy(copyReleaseAARToAddons)
+assemble.finalizedBy(copyAddonsToDemo)
+assemble.finalizedBy(copyDebugAARToDemoAddons)
+assemble.finalizedBy(copyReleaseAARToDemoAddons)
 assemble.finalizedBy(copyDebugSharedLibs)
 assemble.finalizedBy(copyReleaseSharedLibs)
-assemble.finalizedBy(copyAddonsToDemo)

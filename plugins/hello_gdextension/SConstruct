@@ -18,12 +18,12 @@ sources = Glob("src/main/cpp/*.cpp")
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "src/main/assets/addons/hello_gdextension_plugin/.bin/libhello_gdextension.{}.{}.framework/libhello_gdextension.{}.{}".format(env["platform"], env["target"], env["platform"], env["target"]),
+        "demo/addons/hello_gdextension_plugin/bin/libhello_gdextension.{}.{}.framework/libhello_gdextension.{}.{}".format(env["platform"], env["target"], env["platform"], env["target"]),
         source=sources,
     )
 else:
     library = env.SharedLibrary(
-        "src/main/assets/addons/hello_gdextension_plugin/.bin/libhello_gdextension{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+        "demo/addons/hello_gdextension_plugin/bin/libhello_gdextension{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
         source=sources,
     )
 
