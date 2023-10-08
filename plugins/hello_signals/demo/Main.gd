@@ -5,7 +5,7 @@ var timerRunning = false
 var helloSignalsPlugin : HelloSignalsPlugin
 
 func _ready():
-	helloSignalsPlugin = preload("res://addons/hello_signals_plugin/interface/hello_signals_plugin.gd").new()
+	helloSignalsPlugin = preload("res://addons/hello_signals_plugin/hello_signals_plugin_interface.gd").new()
 	helloSignalsPlugin.registerForTikTok(Callable(self, "_on_tiktok"))
 		
 	$Button.connect("pressed", Callable(self, "_on_Button_pressed"))

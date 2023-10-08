@@ -12,7 +12,7 @@ cd Godot-Android-Samples
 ./gradlew :plugins:hello_signals:assemble
 ```
 
-The generated artifact can be found under [`demo/addons`](src/main/assets/addons).
+The generated artifact can be found under [`demo/addons`](demo/addons).
 
 ### Usage
 
