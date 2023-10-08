@@ -29,21 +29,21 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"
 }
 
-tasks.register('copyDebugAARToAddons', Copy) {
+tasks.register('copyDebugAARToDemoAddons', Copy) {
     from 'build/outputs/aar'
     include 'HelloWorld.debug.aar'
-    into 'src/main/assets/addons/hello_world_plugin/.bin/debug'
+    into 'demo/addons/hello_world_plugin/bin/debug'
 }
 
-tasks.register('copyReleaseAARToAddons', Copy) {
+tasks.register('copyReleaseAARToDemoAddons', Copy) {
     from 'build/outputs/aar'
     include 'HelloWorld.release.aar'
-    into 'src/main/assets/addons/hello_world_plugin/.bin/release'
+    into 'demo/addons/hello_world_plugin/bin/release'
 }
 
 tasks.register('copyAddonsToDemo', Copy) {
-    dependsOn(copyDebugAARToAddons)
-    dependsOn(copyReleaseAARToAddons)
+    finalizedBy(copyDebugAARToDemoAddons)
+    finalizedBy(copyReleaseAARToDemoAddons)
 
     doFirst {
         delete('demo/addons/hello_world_plugin')
@@ -52,6 +52,6 @@ tasks.register('copyAddonsToDemo', Copy) {
     into 'demo/addons/hello_world_plugin'
 }
 
-assemble.finalizedBy(copyDebugAARToAddons)
-assemble.finalizedBy(copyReleaseAARToAddons)
 assemble.finalizedBy(copyAddonsToDemo)
+assemble.finalizedBy(copyDebugAARToDemoAddons)
+assemble.finalizedBy(copyReleaseAARToDemoAddons)
