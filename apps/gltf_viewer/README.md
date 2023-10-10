@@ -5,7 +5,7 @@ GLTF models rendered by the Godot engine.
 
 Set of GLTFs courtesy of [Kenney Food Kit pack!](https://kenney.nl/assets/food-kit)
 
-![app_screenshot.png](app_screenshot.png)
+![app_screenshot.png](app_screenshot.webp)
 
 ### Build & install
 
