@@ -1,4 +1,4 @@
-final snapshotGodotAndroidLib = "org.godotengine:godot:4.2.0.dev-SNAPSHOT"
+final snapshotGodotAndroidLib = "org.godotengine:godot:4.2.0.beta-SNAPSHOT"
 final stableGodotAndroidLib = "org.godotengine:godot:4.1.0.stable"
 
 ext {
