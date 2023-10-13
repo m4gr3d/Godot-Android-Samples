@@ -1,0 +1,47 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace = "fhuya.godot.app.android.xr.gltfviewer"
+    compileSdk versions.compileSdk
+
+    defaultConfig {
+        // The default ignore pattern for the 'assets' directory includes hidden files and
+        // directories which are used by Godot projects, so we override it with the following.
+        aaptOptions {
+            ignoreAssetsPattern "!.svn:!.git:!.gitignore:!.ds_store:!*.scc:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
+        }
+
+        applicationId = "fhuya.godot.app.android.xr.gltfviewer"
+        minSdk versions.minSdk
+        targetSdk versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility = versions.javaVersion
+        targetCompatibility = versions.javaVersion
+    }
+    kotlinOptions {
+        jvmTarget = versions.javaVersion
+    }
+}
+
+dependencies {
+
+    implementation libraries.godotAndroidLib
+    implementation libraries.godotOpenxrLib
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"
+
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation "androidx.fragment:fragment-ktx:1.6.1"
+    implementation "androidx.activity:activity-ktx:1.7.2"
+    implementation "androidx.recyclerview:recyclerview:1.3.1"
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+}
