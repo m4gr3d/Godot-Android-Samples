@@ -41,17 +41,5 @@ tasks.register('copyReleaseAARToDemoAddons', Copy) {
     into 'demo/addons/hello_world_plugin/bin/release'
 }
 
-tasks.register('copyAddonsToDemo', Copy) {
-    finalizedBy(copyDebugAARToDemoAddons)
-    finalizedBy(copyReleaseAARToDemoAddons)
-
-    doFirst {
-        delete('demo/addons/hello_world_plugin')
-    }
-    from 'src/main/assets/addons/hello_world_plugin'
-    into 'demo/addons/hello_world_plugin'
-}
-
-assemble.finalizedBy(copyAddonsToDemo)
 assemble.finalizedBy(copyDebugAARToDemoAddons)
 assemble.finalizedBy(copyReleaseAARToDemoAddons)

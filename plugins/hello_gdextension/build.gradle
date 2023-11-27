@@ -70,21 +70,16 @@ tasks.register('copyReleaseSharedLibs', Copy) {
     into 'demo/addons/hello_gdextension_plugin/bin/release'
 }
 
-tasks.register('copyAddonsToDemo', Copy) {
-    finalizedBy(copyDebugAARToDemoAddons)
-    finalizedBy(copyReleaseAARToDemoAddons)
-    finalizedBy(copyDebugSharedLibs)
-    finalizedBy(copyReleaseSharedLibs)
+tasks.register('copyGdExtensionConfigToAssets', Copy) {
+    description 'Copy hello_gdextension.gdextension from the addons directory to the assets directory'
 
-    doFirst {
-        delete('demo/addons/hello_gdextension_plugin')
-    }
-    from 'src/main/assets/addons/hello_gdextension_plugin'
-    into 'demo/addons/hello_gdextension_plugin'
-
+    from 'demo/addons/hello_gdextension_plugin/'
+    include 'hello_gdextension.gdextension'
+    into 'src/main/assets/addons/hello_gdextension_plugin'
 }
 
-assemble.finalizedBy(copyAddonsToDemo)
+preBuild.dependsOn(copyGdExtensionConfigToAssets)
+assemble.dependsOn(copyGdExtensionConfigToAssets)
 assemble.finalizedBy(copyDebugAARToDemoAddons)
 assemble.finalizedBy(copyReleaseAARToDemoAddons)
 assemble.finalizedBy(copyDebugSharedLibs)

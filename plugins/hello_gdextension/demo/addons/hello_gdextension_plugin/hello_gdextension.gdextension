@@ -1,0 +1,14 @@
+[configuration]
+
+entry_symbol = "example_library_init"
+compatibility_minimum = "4.2"
+android_aar_plugin = true
+
+[libraries]
+
+android.debug.arm64 = "res://addons/hello_gdextension_plugin/bin/debug/arm64-v8a/libhello_gdextension.so"
+android.release.arm64 = "res://addons/hello_gdextension_plugin/bin/release/arm64-v8a/libhello_gdextension.so"
+linux.debug.x86_64 = "res://addons/hello_gdextension_plugin/bin/libhello_gdextension.linux.template_debug.x86_64.so"
+linux.release.x86_64 = "res://addons/hello_gdextension_plugin/bin/libhello_gdextension.linux.template_release.x86_64.so"
+macos.debug = "res://addons/hello_gdextension_plugin/bin/libhello_gdextension.macos.template_debug.framework"
+macos.release = "res://addons/hello_gdextension_plugin/bin/libhello_gdextension.macos.template_release.framework"
