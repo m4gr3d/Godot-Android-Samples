@@ -1,6 +1,3 @@
-final snapshotGodotAndroidLib = "org.godotengine:godot:4.2.0.rc-SNAPSHOT"
-final stableGodotAndroidLib = "org.godotengine:godot:4.2.0.stable"
-
 ext {
     versions = [
             gradlePluginVersion: '7.4.0',
@@ -12,7 +9,6 @@ ext {
     ]
 
     libraries = [
-            // TODO: Update the godot dep when 4.2 is stable
-            godotAndroidLib: snapshotGodotAndroidLib,
+            godotAndroidLib: "org.godotengine:godot:4.2.0.stable",
     ]
 }
