@@ -26,12 +26,17 @@ class MainActivity : AppCompatActivity(), ItemsSelectionFragment.SelectionListen
         }
     }
 
-    override fun onItemSelected(item: GLTFContent.GLTFItem) {
+    override fun onNewIntent(newIntent: Intent) {
+        super.onNewIntent(newIntent)
+        intent = newIntent
+    }
+
+    override fun onItemSelected(item: String) {
         // Fire an intent to start the XRActivity with the gltf file path payload
-        Log.d(TAG, "Starting XRActivity with selected gltf: ${item.glbFilepath}")
+        Log.d(TAG, "Starting XRActivity with selected gltf: $item")
         val xrIntent = Intent(this, XRActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            putExtra(XRActivity.EXTRA_GLTF_FILE_PATH, item.glbFilepath)
+            putExtra(ItemsSelectionFragment.EXTRA_SELECTED_GLTF, item)
         }
         startActivity(xrIntent)
         finishAndRemoveTask()

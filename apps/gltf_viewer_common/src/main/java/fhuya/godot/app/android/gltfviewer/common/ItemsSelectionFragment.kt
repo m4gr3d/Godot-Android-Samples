@@ -18,6 +18,8 @@ class ItemsSelectionFragment : Fragment(), GLTFItemRecyclerViewAdapter.Listener 
     companion object {
         const val ARG_COLUMN_COUNT = "column-count"
 
+        const val EXTRA_SELECTED_GLTF = "extra_selected_gltf"
+
         @JvmStatic
         fun newInstance(columnCount: Int) =
             ItemsSelectionFragment().apply {
@@ -28,7 +30,7 @@ class ItemsSelectionFragment : Fragment(), GLTFItemRecyclerViewAdapter.Listener 
     }
 
     interface SelectionListener {
-        fun onItemSelected(item: GLTFContent.GLTFItem)
+        fun onItemSelected(item: String)
     }
 
     private var selectionListener: SelectionListener? = null
@@ -71,12 +73,23 @@ class ItemsSelectionFragment : Fragment(), GLTFItemRecyclerViewAdapter.Listener 
                 }
                 adapter = GLTFItemRecyclerViewAdapter(context, GLTFContent.ITEMS,
                     this@ItemsSelectionFragment)
+
             }
         }
         return view
     }
 
-    override fun onItemSelected(item: GLTFContent.GLTFItem) {
+    override fun onResume() {
+        super.onResume()
+        val currentSelection = activity?.intent?.getStringExtra(EXTRA_SELECTED_GLTF)
+        val view = view
+        if (!currentSelection.isNullOrBlank() && view is RecyclerView) {
+            val position = Math.max(GLTFContent.ITEMS.indexOf(currentSelection) -1, 0)
+            view.layoutManager?.scrollToPosition(position)
+        }
+    }
+
+    override fun onItemSelected(item: String) {
         selectionListener?.onItemSelected(item)
     }
 }

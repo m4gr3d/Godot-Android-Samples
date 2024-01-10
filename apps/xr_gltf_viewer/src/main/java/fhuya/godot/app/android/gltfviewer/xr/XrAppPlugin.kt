@@ -2,6 +2,8 @@ package fhuya.godot.app.android.gltfviewer.xr
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import fhuya.godot.app.android.gltfviewer.common.GLTFContent
+import fhuya.godot.app.android.gltfviewer.common.ItemsSelectionFragment
 import org.godotengine.godot.Godot
 import org.godotengine.godot.plugin.GodotPlugin
 import org.godotengine.godot.plugin.SignalInfo
@@ -16,6 +18,7 @@ class XrAppPlugin(godot: Godot) : GodotPlugin(godot) {
         val SHOW_GLTF_SIGNAL = SignalInfo("show_gltf", String::class.java)
     }
 
+    private var currentGLTFSelection = "turkey"
     private var mainLoopStarted = false
     private var resumed = false
     private var pendingGLTF = ""
@@ -29,11 +32,12 @@ class XrAppPlugin(godot: Godot) : GodotPlugin(godot) {
      *
      * @param glbFilepath Filepath of the gltf asset to be shown
      */
-    internal fun showGLTF(glbFilepath: String) {
+    internal fun showGLTF(selectedGLTF: String) {
         if (mainLoopStarted && resumed) {
-            emitSignal(SHOW_GLTF_SIGNAL.name, glbFilepath)
+            emitSignal(SHOW_GLTF_SIGNAL.name, GLTFContent.getGLTFFilepath(selectedGLTF))
+            currentGLTFSelection = selectedGLTF
         } else {
-            pendingGLTF = glbFilepath
+            pendingGLTF = selectedGLTF
         }
     }
 
@@ -66,9 +70,9 @@ class XrAppPlugin(godot: Godot) : GodotPlugin(godot) {
         runOnUiThread {
             val selectItemsIntent = Intent(activity, MainActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                addFlags(XRActivity.FLAG_ACTIVITY_CROSS_DISPLAY_RESULT)
+                putExtra(ItemsSelectionFragment.EXTRA_SELECTED_GLTF, currentGLTFSelection)
             }
-            activity?.startActivityForResult(selectItemsIntent, XRActivity.REQUEST_CODE)
+            activity?.startActivity(selectItemsIntent)
         }
     }
 }

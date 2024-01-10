@@ -60,7 +60,7 @@ class MainActivity: AppCompatActivity(), GodotHost, ItemsSelectionFragment.Selec
         return setOf(appPlugin!!)
     }
 
-    override fun onItemSelected(item: GLTFContent.GLTFItem) {
-        appPlugin?.showGLTF(item.glbFilepath)
+    override fun onItemSelected(item: String) {
+        appPlugin?.showGLTF(GLTFContent.getGLTFFilepath(item))
     }
 }

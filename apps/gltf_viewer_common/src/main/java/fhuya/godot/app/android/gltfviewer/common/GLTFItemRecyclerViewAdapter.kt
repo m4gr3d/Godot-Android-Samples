@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-import fhuya.godot.app.android.gltfviewer.common.GLTFContent.GLTFItem
 import fhuya.godot.app.android.gltfviewer.common.databinding.FragmentItemsSelectionBinding
 
 /**
@@ -15,7 +14,7 @@ import fhuya.godot.app.android.gltfviewer.common.databinding.FragmentItemsSelect
  */
 class GLTFItemRecyclerViewAdapter(
     private val context: Context,
-    private val values: List<GLTFItem>,
+    private val values: List<String>,
     private val listener: Listener
 ) : RecyclerView.Adapter<GLTFItemRecyclerViewAdapter.ViewHolder>() {
 
@@ -23,7 +22,7 @@ class GLTFItemRecyclerViewAdapter(
         /**
          * Used to notify when a [GLTFItem] has been selected.
          */
-        fun onItemSelected(item: GLTFItem)
+        fun onItemSelected(item: String)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,8 +37,8 @@ class GLTFItemRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.screenshotView.setImageResource(item.getScreenshotDrawableId(context))
-        holder.contentView.text = item.name
+        holder.screenshotView.setImageResource(GLTFContent.getScreenshotDrawableId(context, item))
+        holder.contentView.text = item
         holder.itemView.setOnClickListener {
             listener.onItemSelected(item)
         }
