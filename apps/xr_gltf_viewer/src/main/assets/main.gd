@@ -2,6 +2,7 @@ extends Node3D
 
 var xr_interface: XRInterface = null
 
+@onready var gltf_holder: Node3D = $GLTFHolder
 # Reference to the gltf model that's currently being shown.
 var current_gltf_node: Node3D = null
 
@@ -17,11 +18,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if current_gltf_node == null:
-		return
-	
 	# Make the gltf model slowly rotate
-	current_gltf_node.rotate_y(0.001)
+	gltf_holder.rotate_y(0.001)
 
 
 func _initialize_xr_interface() -> void:
@@ -33,14 +31,14 @@ func _initialize_xr_interface() -> void:
 
 func _load_gltf_model(gltf_path: String) -> void:
 	if current_gltf_node != null:
-		remove_child(current_gltf_node)
+		gltf_holder.remove_child(current_gltf_node)
 	
 	current_gltf_node = load(gltf_path).instantiate()
-	add_child(current_gltf_node)
+	gltf_holder.add_child(current_gltf_node)
 
 
 func _connect_to_app_plugin() -> void:
-	var app_plugin := Engine.get_singleton("AppPlugin")
+	var app_plugin := Engine.get_singleton("XrAppPlugin")
 	if app_plugin:
 		print("App plugin is available")
 		
@@ -48,3 +46,14 @@ func _connect_to_app_plugin() -> void:
 		app_plugin.connect("show_gltf", _load_gltf_model)
 	else:
 		print("App plugin is not available")
+
+
+func _on_left_hand_button_pressed(name: String) -> void:
+	if name == "menu_button":
+		var app_plugin := Engine.get_singleton("XrAppPlugin")
+		if app_plugin:
+			print("Invoking GLTF menu")
+			app_plugin.showItemsSelection()
+		else:
+			printerr("Unable to invoke GLTF menu")
+		pass

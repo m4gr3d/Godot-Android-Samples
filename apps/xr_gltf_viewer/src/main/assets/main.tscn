@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpspyi82e5rpd"]
+[gd_scene load_steps=6 format=3 uid="uid://dpspyi82e5rpd"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_il0of"]
 
@@ -13,6 +13,9 @@ sky_material = SubResource("ProceduralSkyMaterial_06m47")
 background_mode = 2
 sky = SubResource("Sky_p04pe")
 tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_7o8cb"]
+size = Vector3(0.1, 0.1, 0.1)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_il0of")
@@ -29,7 +32,20 @@ environment = SubResource("Environment_33py8")
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 
 [node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.608922, 0, 0)
 tracker = &"left_hand"
 
+[node name="LeftHandModel" type="MeshInstance3D" parent="XROrigin3D/LeftHand"]
+mesh = SubResource("BoxMesh_7o8cb")
+
 [node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.678941, 0, 0)
 tracker = &"right_hand"
+
+[node name="RightHandModel" type="MeshInstance3D" parent="XROrigin3D/RightHand"]
+mesh = SubResource("BoxMesh_7o8cb")
+
+[node name="GLTFHolder" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2.012)
+
+[connection signal="button_pressed" from="XROrigin3D/LeftHand" to="." method="_on_left_hand_button_pressed"]

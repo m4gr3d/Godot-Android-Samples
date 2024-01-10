@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "fhuya.godot.app.android.xr.gltfviewer"
+    namespace = "fhuya.godot.app.android.gltfviewer.xr"
     compileSdk versions.compileSdk
 
     defaultConfig {
@@ -31,6 +31,8 @@ android {
 }
 
 dependencies {
+
+    implementation project(":apps:gltf_viewer_common")
 
     implementation libraries.godotAndroidLib
     implementation libraries.godotOpenxrLib
