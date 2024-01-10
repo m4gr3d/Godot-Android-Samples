@@ -1,7 +1,9 @@
-package fhuyakou.godot.app.android.gltfviewer
+package fhuya.godot.app.android.gltfviewer.pancake
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import fhuya.godot.app.android.gltfviewer.common.GLTFContent
+import fhuya.godot.app.android.gltfviewer.common.ItemsSelectionFragment
 import org.godotengine.godot.Godot
 import org.godotengine.godot.GodotFragment
 import org.godotengine.godot.GodotHost
@@ -10,11 +12,11 @@ import org.godotengine.godot.plugin.GodotPlugin
 /**
  * Implements the [GodotHost] interface so it can access functionality from the [Godot] instance.
  */
-class MainActivity: AppCompatActivity(), GodotHost {
+class MainActivity: AppCompatActivity(), GodotHost, ItemsSelectionFragment.SelectionListener {
 
     private var godotFragment: GodotFragment? = null
 
-    internal var appPlugin: AppPlugin? = null
+    private var appPlugin: AppPlugin? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,5 +58,9 @@ class MainActivity: AppCompatActivity(), GodotHost {
         initAppPluginIfNeeded(godot)
 
         return setOf(appPlugin!!)
+    }
+
+    override fun onItemSelected(item: GLTFContent.GLTFItem) {
+        appPlugin?.showGLTF(item.glbFilepath)
     }
 }

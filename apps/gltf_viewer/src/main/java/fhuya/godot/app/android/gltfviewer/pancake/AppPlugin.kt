@@ -1,4 +1,4 @@
-package fhuyakou.godot.app.android.gltfviewer
+package fhuya.godot.app.android.gltfviewer.pancake
 
 import org.godotengine.godot.Godot
 import org.godotengine.godot.plugin.GodotPlugin

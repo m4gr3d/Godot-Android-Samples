@@ -19,3 +19,4 @@ dependencyResolutionManagement {
 rootProject.name = "Godot Android Samples"
 include ':plugins:hello_world', ':plugins:hello_signals', ':plugins:hello_gdextension'
 include ':apps:gltf_viewer', ':apps:xr_gltf_viewer'
+include ':apps:gltf_viewer_common'

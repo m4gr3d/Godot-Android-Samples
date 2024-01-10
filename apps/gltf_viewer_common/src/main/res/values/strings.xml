@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gltf_screenshot_content_description">Show a screenshot of the GLTF asset</string>
+</resources>

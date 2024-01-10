@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "fhuyakou.godot.app.android.gltfviewer"
+    namespace = "fhuya.godot.app.android.gltfviewer.pancake"
     compileSdk versions.compileSdk
 
     defaultConfig {
@@ -34,6 +34,8 @@ android {
 }
 
 dependencies {
+
+    implementation project(":apps:gltf_viewer_common")
 
     implementation libraries.godotAndroidLib
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"

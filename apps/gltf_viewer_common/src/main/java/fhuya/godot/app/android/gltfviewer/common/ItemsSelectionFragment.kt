@@ -1,5 +1,6 @@
-package fhuyakou.godot.app.android.gltfviewer
+package fhuya.godot.app.android.gltfviewer.common
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
  */
 class ItemsSelectionFragment : Fragment(), GLTFItemRecyclerViewAdapter.Listener {
 
-    private var columnCount = 1
-
     companion object {
         const val ARG_COLUMN_COUNT = "column-count"
 
@@ -26,6 +25,27 @@ class ItemsSelectionFragment : Fragment(), GLTFItemRecyclerViewAdapter.Listener 
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }
             }
+    }
+
+    interface SelectionListener {
+        fun onItemSelected(item: GLTFContent.GLTFItem)
+    }
+
+    private var selectionListener: SelectionListener? = null
+    private var columnCount = 1
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        val parentActivity = activity
+        if (parentActivity is SelectionListener) {
+            selectionListener = parentActivity
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        selectionListener = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,9 +77,6 @@ class ItemsSelectionFragment : Fragment(), GLTFItemRecyclerViewAdapter.Listener 
     }
 
     override fun onItemSelected(item: GLTFContent.GLTFItem) {
-        val parentActivity = activity
-        if (parentActivity is MainActivity) {
-            parentActivity.appPlugin?.showGLTF(item.glbFilepath)
-        }
+        selectionListener?.onItemSelected(item)
     }
 }

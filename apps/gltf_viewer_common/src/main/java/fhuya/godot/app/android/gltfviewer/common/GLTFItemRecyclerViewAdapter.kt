@@ -1,4 +1,4 @@
-package fhuyakou.godot.app.android.gltfviewer
+package fhuya.godot.app.android.gltfviewer.common
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-import fhuyakou.godot.app.android.gltfviewer.GLTFContent.GLTFItem
-import fhuyakou.godot.app.android.gltfviewer.databinding.FragmentItemsSelectionBinding
+import fhuya.godot.app.android.gltfviewer.common.GLTFContent.GLTFItem
+import fhuya.godot.app.android.gltfviewer.common.databinding.FragmentItemsSelectionBinding
 
 /**
  * [RecyclerView.Adapter] that can display a [GLTFItem].

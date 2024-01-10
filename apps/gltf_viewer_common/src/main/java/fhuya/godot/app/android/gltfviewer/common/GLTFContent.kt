@@ -1,4 +1,4 @@
-package fhuyakou.godot.app.android.gltfviewer
+package fhuya.godot.app.android.gltfviewer.common
 
 import android.content.Context
 

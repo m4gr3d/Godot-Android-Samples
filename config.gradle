@@ -1,9 +1,3 @@
-final snapshotGodotAndroidLib = "org.godotengine:godot:4.2.0.rc-SNAPSHOT"
-final stableGodotAndroidLib = "org.godotengine:godot:4.2.0.stable"
-
-final snapshotGodotOpenxrLoadersMetaLib = "org.godotengine:godot-openxr-loaders-meta:2.0.0-dev-SNAPSHOT"
-final stableGodotOpenxrLoadersMetaLib = "org.godotengine:godot-openxr-loaders-meta:2.0.0-stable"
-
 ext {
     versions = [
             gradlePluginVersion: '7.4.0',
@@ -15,10 +9,7 @@ ext {
     ]
 
     libraries = [
-            // TODO: Update the godot dep when 4.2 is stable
-            godotAndroidLib: snapshotGodotAndroidLib,
-
-            // TODO: Update the godot openxr loaders dep when 2.0.0 is stable
-            godotOpenxrLib: snapshotGodotOpenxrLoadersMetaLib,
+            godotAndroidLib: "org.godotengine:godot:4.2.1.stable",
+            godotOpenxrLib: "org.godotengine:godot-openxr-vendors-meta:2.0.2-stable",
     ]
 }
