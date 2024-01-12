@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">XR GLTF Viewer</string>
+    <string name="open_in_xr">Open in XR</string>
 </resources>

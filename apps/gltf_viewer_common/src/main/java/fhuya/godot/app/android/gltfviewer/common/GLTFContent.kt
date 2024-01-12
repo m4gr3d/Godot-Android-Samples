@@ -7,6 +7,9 @@ import android.content.Context
  */
 object GLTFContent {
 
+    const val ACTION_GLTF_SELECTED = "fhuya.godot.app.android.gltfviewer.action_selected_gltf"
+    const val EXTRA_SELECTED_GLTF = "extra_selected_gltf"
+
     /**
      * An array of GLTF items.
      */

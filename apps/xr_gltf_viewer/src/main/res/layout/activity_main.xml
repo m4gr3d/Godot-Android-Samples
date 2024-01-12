@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/item_selection_fragment_container"
-    tools:context="fhuya.godot.app.android.gltfviewer.xr.MainActivity">
+    android:layout_height="match_parent">
 
-</FrameLayout>
+    <FrameLayout
+        android:id="@+id/godot_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <FrameLayout
+        android:id="@+id/item_selection_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <FrameLayout
+        android:id="@+id/xr_toolbar_container"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="@dimen/xr_toolbar_height"/>
+
+</LinearLayout>

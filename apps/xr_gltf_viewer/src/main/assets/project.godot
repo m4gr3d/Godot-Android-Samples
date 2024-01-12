@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 gdscript/warnings/untyped_declaration=2
 
+[display]
+
+window/handheld/orientation=6
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

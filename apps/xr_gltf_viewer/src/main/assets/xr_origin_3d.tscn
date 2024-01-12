@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnaswh57bm6t"]
+
+[ext_resource type="Script" path="res://xr_origin_3d.gd" id="1_b16ek"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7o8cb"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="XROrigin3D" type="XROrigin3D"]
+script = ExtResource("1_b16ek")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+
+[node name="LeftHand" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.608922, 0, 0)
+tracker = &"left_hand"
+
+[node name="LeftHandModel" type="MeshInstance3D" parent="LeftHand"]
+mesh = SubResource("BoxMesh_7o8cb")
+
+[node name="RightHand" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.678941, 0, 0)
+tracker = &"right_hand"
+
+[node name="RightHandModel" type="MeshInstance3D" parent="RightHand"]
+mesh = SubResource("BoxMesh_7o8cb")
+
+[connection signal="button_pressed" from="LeftHand" to="." method="_on_left_hand_button_pressed"]

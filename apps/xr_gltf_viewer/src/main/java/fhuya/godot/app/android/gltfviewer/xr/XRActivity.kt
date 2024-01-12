@@ -1,9 +1,13 @@
 package fhuya.godot.app.android.gltfviewer.xr
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
-import fhuya.godot.app.android.gltfviewer.common.ItemsSelectionFragment
+import androidx.core.content.ContextCompat
+import fhuya.godot.app.android.gltfviewer.common.GLTFContent
 import org.godotengine.godot.Godot
 import org.godotengine.godot.GodotActivity
 import org.godotengine.godot.plugin.GodotPlugin
@@ -15,13 +19,37 @@ class XRActivity : GodotActivity() {
         private val TAG = XRActivity::class.java.simpleName
     }
 
-    private var xrAppPlugin: XrAppPlugin? = null
+    private val intentFilter = IntentFilter(GLTFContent.ACTION_GLTF_SELECTED)
+
+    private val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent == null) {
+                return
+            }
+
+            if (intent.action == GLTFContent.ACTION_GLTF_SELECTED) {
+                val selectedGLTF = intent.getStringExtra(GLTFContent.EXTRA_SELECTED_GLTF) ?: return
+                Log.d(TAG, "Received 'GLTF SELECTED' broadcast for $selectedGLTF")
+                this@XRActivity.appPlugin?.showGLTF(selectedGLTF)
+            }
+        }
+
+    }
+
+    private var appPlugin: AppPlugin? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initAppPluginIfNeeded(godot!!)
         handleDataIntent(intent)
+
+        ContextCompat.registerReceiver(this, broadcastReceiver, intentFilter, ContextCompat.RECEIVER_NOT_EXPORTED)
+    }
+
+    override fun onDestroy() {
+        unregisterReceiver(broadcastReceiver)
+        super.onDestroy()
     }
 
     override fun onNewIntent(newIntent: Intent) {
@@ -41,19 +69,19 @@ class XRActivity : GodotActivity() {
 
     override fun getHostPlugins(godot: Godot): Set<GodotPlugin> {
         initAppPluginIfNeeded(godot)
-        return setOf(xrAppPlugin!!)
+        return setOf(appPlugin!!)
     }
 
     private fun initAppPluginIfNeeded(godot: Godot) {
-        if (xrAppPlugin == null) {
-            xrAppPlugin = XrAppPlugin(godot)
+        if (appPlugin == null) {
+            appPlugin = AppPlugin(godot, true)
         }
     }
 
     private fun handleDataIntent(intent: Intent) {
-        val selectedGLTF = intent.getStringExtra(ItemsSelectionFragment.EXTRA_SELECTED_GLTF) ?: return
+        val selectedGLTF = intent.getStringExtra(GLTFContent.EXTRA_SELECTED_GLTF) ?: return
         Log.d(TAG, "Showing gltf item $selectedGLTF")
-        xrAppPlugin?.showGLTF(selectedGLTF)
+        appPlugin?.showGLTF(selectedGLTF)
     }
 
 }
