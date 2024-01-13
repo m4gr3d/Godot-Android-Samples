@@ -1,27 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnaswh57bm6t"]
+[gd_scene load_steps=4 format=3 uid="uid://cnaswh57bm6t"]
 
 [ext_resource type="Script" path="res://xr_origin_3d.gd" id="1_b16ek"]
+[ext_resource type="PackedScene" uid="uid://b47sbgq0t1a0r" path="res://gltf_holder.tscn" id="2_2mnad"]
+[ext_resource type="PackedScene" uid="uid://b0t54rqv5oghl" path="res://gltfs/food_kit/broccoli.glb" id="2_tpfqh"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_7o8cb"]
-size = Vector3(0.1, 0.1, 0.1)
+[node name="MainView" type="Node3D"]
 
-[node name="XROrigin3D" type="XROrigin3D"]
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
 script = ExtResource("1_b16ek")
 
-[node name="XRCamera3D" type="XRCamera3D" parent="."]
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 
-[node name="LeftHand" type="XRController3D" parent="."]
+[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.608922, 0, 0)
 tracker = &"left_hand"
 
-[node name="LeftHandModel" type="MeshInstance3D" parent="LeftHand"]
-mesh = SubResource("BoxMesh_7o8cb")
+[node name="LeftHandModel" parent="XROrigin3D/LeftHand" instance=ExtResource("2_tpfqh")]
+transform = Transform3D(0.3, 0, 0, 0, 0.212132, 0.212132, 0, -0.212132, 0.212132, 0, 0, 0)
 
-[node name="RightHand" type="XRController3D" parent="."]
+[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.678941, 0, 0)
 tracker = &"right_hand"
 
-[node name="RightHandModel" type="MeshInstance3D" parent="RightHand"]
-mesh = SubResource("BoxMesh_7o8cb")
+[node name="RightHandModel" parent="XROrigin3D/RightHand" instance=ExtResource("2_tpfqh")]
+transform = Transform3D(0.3, 0, 0, 0, 0.212132, 0.212132, 0, -0.212132, 0.212132, 0, 0, 0)
 
-[connection signal="button_pressed" from="LeftHand" to="." method="_on_left_hand_button_pressed"]
+[node name="GLTFHolder" parent="." instance=ExtResource("2_2mnad")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -1.7)
+
+[connection signal="button_pressed" from="XROrigin3D/LeftHand" to="XROrigin3D" method="_on_left_hand_button_pressed"]

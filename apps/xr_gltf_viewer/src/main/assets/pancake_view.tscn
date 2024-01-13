@@ -1,6 +1,14 @@
-[gd_scene format=3 uid="uid://dq80bgc3nt6fv"]
+[gd_scene load_steps=3 format=3 uid="uid://dq80bgc3nt6fv"]
 
-[node name="PancakeView" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1)
+[ext_resource type="Script" path="res://pancake_view.gd" id="1_h5vd3"]
+[ext_resource type="PackedScene" uid="uid://b47sbgq0t1a0r" path="res://gltf_holder.tscn" id="2_1r38k"]
+
+[node name="MainView" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.984476, 0.175521, 0, -0.175521, 0.984476, 0, 0, 0)
+script = ExtResource("1_h5vd3")
 
 [node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.996353, 0.08533, 0, -0.08533, 0.996353, 0, 0.7, -1.49012e-08)
+
+[node name="GLTFHolder" parent="." instance=ExtResource("2_1r38k")]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0.305126, -1.09627)

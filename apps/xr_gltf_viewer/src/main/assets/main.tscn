@@ -14,7 +14,7 @@ background_mode = 2
 sky = SubResource("Sky_p04pe")
 tonemap_mode = 2
 
-[node name="Main" type="Node3D"]
+[node name="World" type="Node3D"]
 script = ExtResource("1_il0of")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -23,6 +23,3 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_33py8")
-
-[node name="GLTFHolder" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2.012)

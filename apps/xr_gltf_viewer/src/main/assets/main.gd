@@ -1,8 +1,6 @@
 extends Node3D
 
-@onready var gltf_holder: Node3D = $GLTFHolder
-# Reference to the gltf model that's currently being shown.
-var current_gltf_node: Node3D = null
+var gltf_holder: Node3D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,7 +20,9 @@ func _ready() -> void:
 			_initialize_pancake_interface()
 	else:
 		print("App plugin is not available")
+		_initialize_pancake_interface()
 	
+	gltf_holder = get_node_or_null("/root/World/MainView/GLTFHolder")
 	# Default asset to load when the app starts
 	_load_gltf_model("res://gltfs/food_kit/" + default_selection + ".glb")
 
@@ -30,7 +30,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	# Make the gltf model slowly rotate
-	gltf_holder.rotate_y(0.001)
+	if gltf_holder:
+		gltf_holder.rotate_y(0.001)
 
 
 func _initialize_pancake_interface() -> void:
@@ -48,9 +49,12 @@ func _initialize_xr_interface() -> void:
 
 
 func _load_gltf_model(gltf_path: String) -> void:
-	if current_gltf_node != null:
-		gltf_holder.remove_child(current_gltf_node)
+	if gltf_holder == null:
+		return
+		
+	for child in gltf_holder.get_children():
+		gltf_holder.remove_child(child)
 	
-	current_gltf_node = load(gltf_path).instantiate()
-	gltf_holder.add_child(current_gltf_node)
+	var gltf_node: Node3D = load(gltf_path).instantiate()
+	gltf_holder.add_child(gltf_node)
 

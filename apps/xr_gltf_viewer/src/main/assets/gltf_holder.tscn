@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b47sbgq0t1a0r"]
+
+[ext_resource type="PackedScene" uid="uid://c7yjvih1qfmht" path="res://gltfs/food_kit/turkey.glb" id="1_2ag2s"]
+
+[node name="GLTFHolder" type="Node3D"]
+
+[node name="turkey" parent="." instance=ExtResource("1_2ag2s")]
