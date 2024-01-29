@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnaswh57bm6t"]
+[gd_scene load_steps=3 format=3 uid="uid://cnaswh57bm6t"]
 
 [ext_resource type="Script" path="res://xr_origin_3d.gd" id="1_b16ek"]
 [ext_resource type="PackedScene" uid="uid://b47sbgq0t1a0r" path="res://gltf_holder.tscn" id="2_2mnad"]
-[ext_resource type="PackedScene" uid="uid://b0t54rqv5oghl" path="res://gltfs/food_kit/broccoli.glb" id="2_tpfqh"]
 
 [node name="MainView" type="Node3D"]
 
@@ -14,16 +13,18 @@ script = ExtResource("1_b16ek")
 [node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.608922, 0, 0)
 tracker = &"left_hand"
+pose = &"grip"
 
-[node name="LeftHandModel" parent="XROrigin3D/LeftHand" instance=ExtResource("2_tpfqh")]
-transform = Transform3D(0.3, 0, 0, 0, 0.212132, 0.212132, 0, -0.212132, 0.212132, 0, 0, 0)
+[node name="LeftControllerFbRenderModel" type="OpenXRFbRenderModel" parent="XROrigin3D/LeftHand"]
+render_model_path = "/model_fb/controller/left"
 
 [node name="RightHand" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.678941, 0, 0)
 tracker = &"right_hand"
+pose = &"grip"
 
-[node name="RightHandModel" parent="XROrigin3D/RightHand" instance=ExtResource("2_tpfqh")]
-transform = Transform3D(0.3, 0, 0, 0, 0.212132, 0.212132, 0, -0.212132, 0.212132, 0, 0, 0)
+[node name="RightControllerFbRenderModel" type="OpenXRFbRenderModel" parent="XROrigin3D/RightHand"]
+render_model_path = "/model_fb/controller/right"
 
 [node name="GLTFHolder" parent="." instance=ExtResource("2_2mnad")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -1.7)

@@ -10,6 +10,6 @@ ext {
 
     libraries = [
             godotAndroidLib: "org.godotengine:godot:4.2.1.stable",
-            godotOpenxrLib: "org.godotengine:godot-openxr-vendors-meta:2.0.2-stable",
+            godotOpenxrLib: "org.godotengine:godot-openxr-vendors-meta:2.1.0-dev-SNAPSHOT",
     ]
 }
