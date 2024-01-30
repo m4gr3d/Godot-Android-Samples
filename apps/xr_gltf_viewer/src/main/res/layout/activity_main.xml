@@ -12,13 +12,13 @@
     <FrameLayout
         android:id="@+id/item_selection_fragment_container"
         android:layout_width="match_parent"
+        android:background="@android:color/background_light"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
     <FrameLayout
         android:id="@+id/xr_toolbar_container"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="@dimen/xr_toolbar_height"/>
 
 </LinearLayout>

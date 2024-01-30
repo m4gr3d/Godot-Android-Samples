@@ -27,18 +27,15 @@ class ItemsSelectionFragment : Fragment(), GLTFItemRecyclerViewAdapter.Listener 
             }
     }
 
-    interface SelectionListener {
-        fun onItemSelected(item: String)
-    }
-
-    private var selectionListener: SelectionListener? = null
+    private var itemsAdapter: GLTFItemRecyclerViewAdapter? = null
+    private var selectionListener: GLTFItemRecyclerViewAdapter.Listener? = null
     private var columnCount = 1
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
         val parentActivity = activity
-        if (parentActivity is SelectionListener) {
+        if (parentActivity is GLTFItemRecyclerViewAdapter.Listener) {
             selectionListener = parentActivity
         }
     }
@@ -64,14 +61,14 @@ class ItemsSelectionFragment : Fragment(), GLTFItemRecyclerViewAdapter.Listener 
 
         // Set the adapter
         if (view is RecyclerView) {
+            itemsAdapter = GLTFItemRecyclerViewAdapter(requireContext(), GLTFContent.ITEMS,
+                this@ItemsSelectionFragment)
             with(view) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = GLTFItemRecyclerViewAdapter(context, GLTFContent.ITEMS,
-                    this@ItemsSelectionFragment)
-
+                adapter = itemsAdapter
             }
         }
 
@@ -89,4 +86,10 @@ class ItemsSelectionFragment : Fragment(), GLTFItemRecyclerViewAdapter.Listener 
     override fun onItemSelected(item: String) {
         selectionListener?.onItemSelected(item)
     }
+
+    override fun onShowItemInVr(item: String) {
+        selectionListener?.onShowItemInVr(item)
+    }
+
+    fun getAdapterFilter() = itemsAdapter
 }

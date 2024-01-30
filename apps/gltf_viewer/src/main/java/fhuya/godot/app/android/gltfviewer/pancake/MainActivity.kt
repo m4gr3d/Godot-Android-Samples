@@ -3,6 +3,7 @@ package fhuya.godot.app.android.gltfviewer.pancake
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import fhuya.godot.app.android.gltfviewer.common.GLTFContent
+import fhuya.godot.app.android.gltfviewer.common.GLTFItemRecyclerViewAdapter
 import fhuya.godot.app.android.gltfviewer.common.ItemsSelectionFragment
 import org.godotengine.godot.Godot
 import org.godotengine.godot.GodotFragment
@@ -12,7 +13,7 @@ import org.godotengine.godot.plugin.GodotPlugin
 /**
  * Implements the [GodotHost] interface so it can access functionality from the [Godot] instance.
  */
-class MainActivity: AppCompatActivity(), GodotHost, ItemsSelectionFragment.SelectionListener {
+class MainActivity: AppCompatActivity(), GodotHost, GLTFItemRecyclerViewAdapter.Listener {
 
     private var godotFragment: GodotFragment? = null
 

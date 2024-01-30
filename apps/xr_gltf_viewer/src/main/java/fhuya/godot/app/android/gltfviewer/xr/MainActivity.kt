@@ -1,12 +1,12 @@
 package fhuya.godot.app.android.gltfviewer.xr
 
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import fhuya.godot.app.android.gltfviewer.common.GLTFContent
+import fhuya.godot.app.android.gltfviewer.common.GLTFItemRecyclerViewAdapter
 import fhuya.godot.app.android.gltfviewer.common.ItemsSelectionFragment
 import org.godotengine.godot.Godot
 import org.godotengine.godot.GodotFragment
@@ -15,15 +15,16 @@ import org.godotengine.godot.plugin.GodotPlugin
 import org.godotengine.godot.utils.ProcessPhoenix
 import org.godotengine.godot.xr.XRMode
 
-class MainActivity : AppCompatActivity(), GodotHost, ItemsSelectionFragment.SelectionListener {
+class MainActivity : AppCompatActivity(), GodotHost, GLTFItemRecyclerViewAdapter.Listener {
 
     internal companion object {
         private val TAG = MainActivity::class.java.simpleName
     }
 
     private var godotFragment: GodotFragment? = null
+    private var itemsSelectionFragment: ItemsSelectionFragment? = null
 
-    internal var appPlugin: AppPlugin? = null
+    private var appPlugin: AppPlugin? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,29 +42,24 @@ class MainActivity : AppCompatActivity(), GodotHost, ItemsSelectionFragment.Sele
 
         initAppPluginIfNeeded(godot!!)
 
-        var itemsSelectionFragment = supportFragmentManager.findFragmentById(R.id.item_selection_fragment_container)
-        if (itemsSelectionFragment !is ItemsSelectionFragment) {
-            itemsSelectionFragment = ItemsSelectionFragment.newInstance(1)
+        var itemsFragment = supportFragmentManager.findFragmentById(R.id.item_selection_fragment_container)
+        if (itemsFragment !is ItemsSelectionFragment) {
+            itemsFragment = ItemsSelectionFragment.newInstance(1)
             supportFragmentManager.beginTransaction()
-                .replace(R.id.item_selection_fragment_container, itemsSelectionFragment)
+                .replace(R.id.item_selection_fragment_container, itemsFragment)
                 .commitAllowingStateLoss()
         }
+        itemsSelectionFragment = itemsFragment
 
-        // Check for hybrid capabilities availability
         val toolbarContainerView = findViewById<View>(R.id.xr_toolbar_container)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && packageManager.hasSystemFeature("oculus.software.vr.app.hybrid", 1)) {
-            Log.d(TAG, "Enabling XR toolbar")
-            toolbarContainerView.visibility = View.VISIBLE
+        toolbarContainerView.visibility = View.VISIBLE
 
-            var xrToolbarFragment = supportFragmentManager.findFragmentById(R.id.xr_toolbar_container)
-            if (xrToolbarFragment !is XRToolbarFragment) {
-                xrToolbarFragment = XRToolbarFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.xr_toolbar_container, xrToolbarFragment)
-                    .commitAllowingStateLoss()
-            }
-        } else {
-            toolbarContainerView.visibility = View.GONE
+        var xrToolbarFragment = supportFragmentManager.findFragmentById(R.id.xr_toolbar_container)
+        if (xrToolbarFragment !is ToolbarFragment) {
+            xrToolbarFragment = ToolbarFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.xr_toolbar_container, xrToolbarFragment)
+                .commitAllowingStateLoss()
         }
     }
 
@@ -89,6 +85,21 @@ class MainActivity : AppCompatActivity(), GodotHost, ItemsSelectionFragment.Sele
         })
     }
 
+    override fun onShowItemInVr(item: String) {
+        if (item.isBlank()) {
+            return
+        }
+
+        // Fire an intent to start the XRActivity with the selected gltf
+        Log.d(TAG, "Starting XRActivity with selected gltf: $item")
+        val xrIntent = Intent(this, XRActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            putExtra(GLTFContent.EXTRA_SELECTED_GLTF, item)
+        }
+        startActivity(xrIntent)
+        finishAndRemoveTask()
+    }
+
     private fun initAppPluginIfNeeded(godot: Godot) {
         if (appPlugin == null) {
             appPlugin = AppPlugin(godot, false)
@@ -104,4 +115,6 @@ class MainActivity : AppCompatActivity(), GodotHost, ItemsSelectionFragment.Sele
 
         return setOf(appPlugin!!)
     }
+
+    internal fun getItemsFilter() = itemsSelectionFragment?.getAdapterFilter()
 }
