@@ -27,6 +27,6 @@ pose = &"grip"
 render_model_path = "/model_fb/controller/right"
 
 [node name="GLTFHolder" parent="." instance=ExtResource("2_2mnad")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -1.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -0.3)
 
 [connection signal="button_pressed" from="XROrigin3D/LeftHand" to="XROrigin3D" method="_on_left_hand_button_pressed"]
