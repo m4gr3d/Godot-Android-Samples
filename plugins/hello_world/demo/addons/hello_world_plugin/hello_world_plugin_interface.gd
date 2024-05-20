@@ -1,4 +1,4 @@
-class_name HelloWorldPlugin extends Object
+class_name HelloWorldPlugin extends RefCounted
 
 ## Interface used to access the functionality provided by this plugin
 

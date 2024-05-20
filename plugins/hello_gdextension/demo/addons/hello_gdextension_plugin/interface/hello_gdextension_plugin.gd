@@ -1,4 +1,4 @@
-class_name HelloGDExtensionPlugin extends Object
+class_name HelloGDExtensionPlugin extends RefCounted
 
 ## Interface used to access the functionality provided by the HelloGDExtension plugin
 

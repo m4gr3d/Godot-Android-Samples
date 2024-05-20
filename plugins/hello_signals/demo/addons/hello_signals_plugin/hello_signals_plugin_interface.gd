@@ -1,4 +1,4 @@
-class_name HelloSignalsPlugin extends Object
+class_name HelloSignalsPlugin extends RefCounted
 
 ## Interface used to access the functionality provided by the HelloSignals plugin
 
