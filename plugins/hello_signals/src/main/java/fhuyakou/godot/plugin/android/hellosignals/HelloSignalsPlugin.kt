@@ -50,7 +50,7 @@ class HelloSignalsPlugin(godot: Godot) : GodotPlugin(godot) {
   }
 
   @UsedByGodot
-  private fun onButtonPressed() {
+  fun onButtonPressed() {
     Log.i(TAG, "OnButtonPressed from Kotlin")
     if (!startTikTok()) {
       stopTikTok()

@@ -27,13 +27,13 @@ class HelloGDExtensionPlugin(godot: Godot) : GodotPlugin(godot) {
     }
 
     @UsedByGodot
-    private fun addGDExampleNode(parentNodePath: String) {
+    fun addGDExampleNode(parentNodePath: String) {
         Log.i(TAG, "Adding GDExample node to $parentNodePath")
         nativeAddGDExampleNode(parentNodePath)
     }
 
     @UsedByGodot
-    private fun setGDExampleVisible(visible: Boolean) {
+    fun setGDExampleVisible(visible: Boolean) {
         Log.i(TAG, "Updating GDExample node visibility to $visible")
         nativeToggleVisibility(visible)
     }

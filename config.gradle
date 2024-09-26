@@ -9,6 +9,6 @@ ext {
     ]
 
     libraries = [
-            godotAndroidLib: "org.godotengine:godot:4.2.0.stable",
+            godotAndroidLib: "org.godotengine:godot:4.3.0.stable",
     ]
 }
