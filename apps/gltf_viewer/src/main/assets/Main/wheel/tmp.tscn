@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvvsbejcyj7st"]
+
+[ext_resource type="PackedScene" uid="uid://bvys0nq0rdju" path="res://Main/wheel/tmp.glb" id="1_5v2fw"]
+[ext_resource type="Script" path="res://Main/wheel/WheelResult.cs" id="2_8vt4y"]
+[ext_resource type="Script" path="res://Main/wheel/WheelPiece.cs" id="3_m0k5i"]
+
+[node name="WheelResult" node_paths=PackedStringArray("Pieces") instance=ExtResource("1_5v2fw")]
+script = ExtResource("2_8vt4y")
+Pieces = []
+
+[node name="piece1" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.05, 0.6)
+script = ExtResource("3_m0k5i")
+
+[node name="Label3D" type="Label3D" parent="piece1" index="0"]
+transform = Transform3D(-0.707107, -0.707107, -3.09086e-08, 0, -4.37114e-08, 1, -0.707107, 0.707107, 3.09086e-08, 0, 0.05, 0)
+modulate = Color(0, 0, 0, 1)
+text = "Giảm giá"
+outline_size = 3
+
+[node name="piece" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.05, -0.6)
+script = ExtResource("3_m0k5i")
+VoucherCode = "BBBBBB"
+
+[node name="Label3D2" type="Label3D" parent="piece" index="0"]
+transform = Transform3D(0.707107, -0.707107, -3.09086e-08, 0, -4.37114e-08, 1, -0.707107, -0.707107, -3.09086e-08, 0, 0.05, 0)
+modulate = Color(0, 0, 0, 1)
+text = "Giảm giá"
+outline_size = 3
+
+[node name="piece_001" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.05, -0.6)
+script = ExtResource("3_m0k5i")
+VoucherCode = "CCCCCC"
+
+[node name="Label3D3" type="Label3D" parent="piece_001" index="0"]
+transform = Transform3D(0.707107, 0.707107, 3.09086e-08, 0, -4.37114e-08, 1, 0.707107, -0.707107, -3.09086e-08, 0, 0.05, 0)
+modulate = Color(0, 0, 0, 1)
+text = "Giảm giá"
+outline_size = 3
+
+[node name="piece_002" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.05, 0.6)
+script = ExtResource("3_m0k5i")
+VoucherCode = "DDDASAS"
+
+[node name="Label3D4" type="Label3D" parent="piece_002" index="0"]
+transform = Transform3D(-0.707107, 0.707107, 3.09086e-08, 0, -4.37114e-08, 1, 0.707107, 0.707107, 3.09086e-08, 0, 0.05, 0)
+modulate = Color(0, 0, 0, 1)
+text = "Giảm giá"
+outline_size = 3

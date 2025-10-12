@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://c81taggmo6p5a"]
+
+[ext_resource type="PackedScene" uid="uid://g8yj4iu5rlpa" path="res://Main/wheel/point.tscn" id="1_3um11"]
+[ext_resource type="PackedScene" uid="uid://dvvsbejcyj7st" path="res://Main/wheel/tmp.tscn" id="1_atajm"]
+[ext_resource type="Script" path="res://Main/WheelRi.cs" id="1_u32m1"]
+
+[sub_resource type="Environment" id="Environment_jyn5d"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_whq61"]
+height = 0.181104
+radius = 1.14694
+
+[node name="Main" type="Node"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.68832)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jyn5d")
+
+[node name="point" parent="." instance=ExtResource("1_3um11")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0)
+
+[node name="WheelRi" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+angular_damp = 1.0
+script = ExtResource("1_u32m1")
+Speed = 10
+
+[node name="tmp" parent="WheelRi" node_paths=PackedStringArray("Pointer") instance=ExtResource("1_atajm")]
+Pointer = NodePath("../../point")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WheelRi"]
+shape = SubResource("CylinderShape3D_whq61")

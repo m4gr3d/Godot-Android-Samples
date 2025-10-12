@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://g8yj4iu5rlpa"]
+
+[ext_resource type="PackedScene" uid="uid://1e57c13wklik" path="res://Main/wheel/point.glb" id="1_rbjqx"]
+
+[node name="point" instance=ExtResource("1_rbjqx")]
