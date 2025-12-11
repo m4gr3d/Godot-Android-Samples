@@ -1,14 +1,14 @@
 ext {
     versions = [
-            gradlePluginVersion: '8.2.0',
-            compileSdk         : 35,
-            minSdk             : 21,
-            targetSdk          : 35,
+            gradlePluginVersion: '8.13.2',
+            compileSdk         : 36,
+            minSdk             : 24,
+            targetSdk          : 36,
             javaVersion        : JavaVersion.VERSION_17,
-            kotlinVersion      : '1.9.20',
+            kotlinVersion      : '2.2.21',
     ]
 
     libraries = [
-            godotAndroidLib: "org.godotengine:godot:4.4.1.stable",
+            godotAndroidLib: "org.godotengine:godot:4.5.1.stable",
     ]
 }

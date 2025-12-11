@@ -20,14 +20,12 @@ git submodule update --init
 
 ### Building the C++ bindings
 
-To generate and compile the C++ bindings, use the following commands. To speed up compilation, 
-add `-jN` at the end of the SCons command line where `N` is the number of CPU threads you have 
-on your system. The example below uses 4 threads.
+To generate and compile the C++ bindings, use the following commands.
 
 ```
 cd Godot-Android-Samples/plugins/hello_gdextension/godot-cpp
-scons platform=android -j4 target=template_debug
-scons platform=android -j4 target=template_release
+scons platform=android target=template_debug
+scons platform=android target=template_release
 ```
 
 When it's completed, you should have static libraries stored in 

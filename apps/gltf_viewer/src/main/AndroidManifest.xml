@@ -11,7 +11,7 @@
 
         <activity android:name=".MainActivity"
             android:screenOrientation="fullUser"
-            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
+            android:configChanges="layoutDirection|locale|orientation|keyboardHidden|screenSize|smallestScreenSize|density|keyboard|navigation|screenLayout|uiMode"
             android:exported="true">
 
             <intent-filter>
