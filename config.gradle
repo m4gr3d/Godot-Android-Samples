@@ -5,10 +5,10 @@ ext {
             minSdk             : 24,
             targetSdk          : 36,
             javaVersion        : JavaVersion.VERSION_17,
-            kotlinVersion      : '2.2.21',
+            kotlinVersion      : '2.4.10',
     ]
 
     libraries = [
-            godotAndroidLib: "org.godotengine:godot:4.5.1.stable",
+            godotAndroidLib: "org.godotengine:godot:4.8.0.dev-SNAPSHOT",
     ]
 }

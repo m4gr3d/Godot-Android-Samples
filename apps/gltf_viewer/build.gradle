@@ -35,11 +35,45 @@ android {
 
 dependencies {
 
+    // Godot Android library dependency
     implementation libraries.godotAndroidLib
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"
 
-    implementation "androidx.fragment:fragment-ktx:1.8.9"
-    implementation "androidx.activity:activity-ktx:1.12.1"
-    implementation "androidx.appcompat:appcompat:1.7.1"
+    // Godot project dependencies
+    implementation fileTree(dir: "godot/exportedAARs", include: ["**/*.jar", "*.aar"])
+    implementation fileTree(dir: "godot/exportedAARs/aar_deps", include: ["**/*.jar", "*.aar"])
+
+    implementation "androidx.activity:activity-ktx:1.13.0"
+    implementation "androidx.appcompat:appcompat:1.8.0"
+    implementation "androidx.core:core-splashscreen:1.2.0"
+    implementation "androidx.fragment:fragment-ktx:1.9.1"
     implementation "androidx.recyclerview:recyclerview:1.4.0"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"
+}
+
+// Provide the absolute path to the Godot editor binary
+def godotBinary = ""
+
+tasks.register("exportGodotProject", Exec) {
+    doFirst {
+        if (godotBinary.isEmpty()) {
+            throw new GradleException("The path to the Godot editor binary was not specified.")
+        }
+
+        File godotBinaryFile = new File(godotBinary)
+        if (!godotBinaryFile.exists()) {
+            throw new GradleException("The path to the Godot editor binary is invalid: $godotBinary")
+        }
+    }
+
+    description = "Export the embedded Godot project"
+    workingDir file("godot")
+    executable godotBinary
+    args "--headless", "--export-release", "Android AAR", "exportedAARs/gltf_viewer_godot_project.aar"
+}
+
+afterEvaluate {
+    tasks.named("preBuild").configure {
+        dependsOn("exportGodotProject")
+    }
 }
